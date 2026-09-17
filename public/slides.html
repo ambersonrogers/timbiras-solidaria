@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timbiras Solidária — Apresentação da Atividade 2 (Nota 2) — ADS UEMA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap');
+
+        :root {
+            --verde-raiz: #00873e;
+            --verde-folha: #10b981;
+            --amarelo-terra: #f59e0b;
+            --azul-itapecuru: #0284c7;
+            --grafite-leitura: #1e293b;
+            --fundo-slide: #ffffff;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #e2e8f0;
+            color: var(--grafite-leitura);
+            margin: 0;
+            padding: 30px 0;
+        }
+
+        .slide-deck {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .slide {
+            width: 1160px;
+            height: 652px; /* 16:9 proporção exata */
+            background: var(--fundo-slide);
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+            border-radius: 12px;
+            position: relative;
+            padding: 36px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            box-sizing: border-box;
+            page-break-after: always;
+            break-after: page;
+        }
+
+        .slide-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .slide-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--verde-raiz);
+            font-size: 1.65rem;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .slide-header .tag-sessao {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .slide-body {
+            flex: 1;
+            padding-top: 18px;
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+
+        .slide-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* Capa Calorosa e Humana */
+        .slide-capa {
+            background: linear-gradient(135deg, #092e1a 0%, #0f3d24 45%, #082417 100%);
+            color: #ffffff;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 80px;
+            position: relative;
+        }
+
+        .slide-capa::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.2), transparent 60%);
+            pointer-events: none;
+        }
+
+        .slide-capa h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #4ade80;
+            margin-bottom: 12px;
+            letter-spacing: -0.03em;
+        }
+
+        .slide-capa .subtitulo {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            max-width: 820px;
+            margin: 0 auto 28px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .cartao-humano {
+            background: #f8fafc;
+            border-left: 4px solid var(--verde-raiz);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .cartao-destaque-quente {
+            background: #fefce8;
+            border-left: 4px solid var(--amarelo-terra);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+
+        .code-box {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.8rem;
+            line-height: 1.45;
+        }
+
+        .print-preview-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .print-preview-box img {
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .barra-impressao {
+            position: fixed;
+            top: 20px;
+            right: 25px;
+            z-index: 99999;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .barra-impressao {
+                display: none;
+            }
+            .slide {
+                width: 100vw;
+                height: 100vh;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                page-break-after: always;
+                break-after: page;
+            }
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="barra-impressao">
+        <button class="btn btn-success shadow-lg fw-bold px-4 py-2 rounded-pill" onclick="window.print()">
+            <i class="bi bi-printer-fill me-2"></i> Salvar Apresentação em PDF (Ctrl + P)
+        </button>
+    </div>
+
+    <div class="slide-deck">
+
+        <!-- SLIDE 1: CAPA -->
+        <div class="slide slide-capa">
+            <div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 text-uppercase mb-3 fw-semibold">
+                    UNIVERSIDADE ESTADUAL DO MARANHÃO — UEMA
+                </span>
+                <p class="text-white-50 small mb-2">CST em Análise e Desenvolvimento de Sistemas | Disciplina: Desenvolvimento Web | Nota 2</p>
+                <h1>Timbiras Solidária 🏹</h1>
+                <p class="subtitulo">
+                    Como a tecnologia web pode encurtar distâncias, combater a fome e unir uma comunidade inteira em torno do ODS 2 da ONU.
+                </p>
+            </div>
+            
+            <div class="border-top border-white-50 pt-3 mt-2">
+                <div class="row text-center text-white-50 small">
+                    <div class="col-12">
+                        <strong class="text-white">EQUIPE TIMBIRANOS:</strong> Amberson Lindoso • Kelly Sousa • Jhony Fernandes • Weldes Reis
+                    </div>
+                    <div class="col-12 mt-2">
+                        <span class="text-success-emphasis bg-white px-2 py-1 rounded text-dark fw-bold">Polo Universitário de Timbiras — Maranhão | 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: INTRODUÇÃO & REALIDADE LOCAL -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>1. Nossa Terra, Nossa Gente: Por Que Timbiras?</h2>
+                <span class="tag-sessao">1. Introdução</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4 align-items-center">
+                    <div class="col-7">
+                        <p class="lead text-dark fw-semibold mb-2" style="font-size: 1.05rem;">
+                            A fome não é um número abstrato em uma planilha. Ela tem nome, endereço e rosto nos bairros e na zona rural da nossa cidade.
+                        </p>
+                        <p class="text-muted small">
+                            Timbiras é uma cidade acolhedora, forte e trabalhadora, banhada pelas águas do Rio Itapecuru. Mas, como tantas cidades do interior do Maranhão, muitas famílias de bairros como Forquilha, Mutirão, Alto Fogoso e povoados rurais distantes enfrentam dias difíceis para garantir o básico na mesa.
+                        </p>
+                        <div class="cartao-humano">
+                            <h6 class="fw-bold text-success mb-1"><i class="bi bi-heart-pulse-fill me-1 text-danger"></i> O Encontro de Duas Realidades</h6>
+                            <small class="text-muted">
+                                De um lado, pequenos agricultores e comerciantes com vontade de ajudar e, às vezes, com sobras de produção na roça. Do outro, famílias precisando de auxílio imediato. A aplicação <strong>Timbiras Solidária</strong> nasceu para ser a ponte digital entre a generosidade de quem pode doar e a dignidade de quem precisa receber.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="p-3 bg-light rounded-3 border h-100">
+                            <h6 class="fw-bold text-success mb-2"><i class="bi bi-bullseye me-1"></i> Compromisso Real com o ODS 2</h6>
+                            <p class="small text-muted mb-3">
+                                Alinhamos o projeto à meta da ONU de <strong>Fome Zero e Agricultura Sustentável</strong>. Nosso foco não é assistencialismo frio, mas mobilização comunitária com valorização do agricultor familiar local.
+                            </p>
+                            <hr class="my-2">
+                            <strong class="small text-dark d-block mb-1">Público-Alvo que Abraçamos:</strong>
+                            <ul class="small text-muted ps-3 mb-0">
+                                <li><strong>Cidadãos comuns:</strong> Que querem doar 1 cesta ou 1 kg de alimento;</li>
+                                <li><strong>Comércio e feirantes:</strong> Que exercem cidadania ativa;</li>
+                                <li><strong>Agricultura familiar:</strong> Que abastece a cidade com alimentos frescos;</li>
+                                <li><strong>Poder público & voluntários:</strong> Para transparência e logística.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 2 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: EVOLUÇÃO DA NOTA 1 PARA A NOTA 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>2. Do Cartaz Estático à Aplicação Viva e Dinâmica</h2>
+                <span class="tag-sessao">2. Desenvolvimento</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-arrow-repeat me-1"></i> O Salto da Primeira para a Segunda Etapa</h6>
+                        <p class="small text-secondary mb-2">
+                            Na <strong>Nota 1</strong>, criamos uma interface estática em HTML5, CSS3 e Bootstrap. Era bonita, organizada e responsiva, mas funcionava como um panfleto digital: parada, passiva, sem diálogo com quem acessava.
+                        </p>
+                        <p class="small text-secondary mb-3">
+                            Na <strong>Nota 2</strong>, nossa missão foi dar vida e coração a esse projeto. Uma iniciativa social precisa de calor, interação instantânea e segurança: quando alguém preenche uma doação, precisa sentir que aquele ato gerou uma resposta no mundo real.
+                        </p>
+                        <div class="cartao-destaque-quente">
+                            <h6 class="fw-bold text-dark mb-1 small"><i class="bi bi-chat-heart-fill text-warning me-1"></i> Interação que Acolhe</h6>
+                            <small class="text-muted">
+                                Mudamos a forma de construir a interface: em vez de scripts soltos no final da página alterando textos manualmente, abraçamos o <strong>React</strong> para que cada elemento na tela reaja imediatamente aos sentimentos e intenções do usuário.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-stars me-1"></i> O Que Mudou na Experiência de Quem Usa</h6>
+                        <div class="p-3 bg-light rounded-3 border small">
+                            <p class="mb-2"><strong>• Retorno Imediato:</strong> Ao enviar uma doação, a meta comunitária sobe na mesma hora no topo do site e um Recibo Solidário com código único surge na tela.</p>
+                            <p class="mb-2"><strong>• Menos Esforço para Fazer o Bem:</strong> Botões de clique rápido ("1 Cesta", "2 Cestas", "5 Cestas") evitam digitação demorada no celular.</p>
+                            <p class="mb-2"><strong>• Chave PIX com 1 Toque:</strong> Cópia instantânea da chave institucional com aviso de confirmação na tela.</p>
+                            <p class="mb-0"><strong>• Trilha Emocionante:</strong> Player com a canção "Imagine", que respeita a privacidade do usuário e pode ser pausado, mutado ou recolhido a qualquer momento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 3 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: MANIPULAÇÃO DO DOM E EVENTOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>2. Interatividade com Respeito ao Usuário: DOM & Eventos</h2>
+                <span class="tag-sessao">2. Desenvolvimento</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-lightning-charge-fill me-1"></i> Os Sentidos da Aplicação (Eventos JavaScript)</h6>
+                        <p class="small text-secondary mb-2">
+                            Implementamos tratamento de eventos pensado para ser acolhedor e intuitivo, sem pegadinhas ou formulários burocráticos:
+                        </p>
+                        <div class="cartao-humano py-2">
+                            <strong class="text-dark small d-block mb-1">Eventos Centrais Implementados:</strong>
+                            <ul class="small text-muted mb-0 ps-3">
+                                <li><code>onSubmit</code> em <code>Doar.jsx</code>: Interrompe o recarregamento brusco da página, confere se os campos estão corretos, grava no <code>localStorage</code> e avisa que a ajuda está a caminho.</li>
+                                <li><code>onChange</code> em <code>PrestacaoContas.jsx</code>: Filtra os bairros de Timbiras enquanto o morador digita, com busca inteligente sem travar.</li>
+                                <li><code>onClick</code> na Navbar: Menu hambúrguer no celular que abre suavemente e fecha sozinho ao tocar em qualquer link.</li>
+                                <li><code>Clipboard API</code>: Cópia suave da chave PIX sem selecionar texto.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-music-note-beamed me-1"></i> A Música que Conecta Gerações</h6>
+                        <p class="small text-secondary mb-2">
+                            Nenhum projeto comunitário vive só de botões; ele vive de sentimento. O componente <code>PlayerAudio.jsx</code> traz a música "Imagine" como pano de fundo de esperança.
+                        </p>
+                        <div class="p-3 bg-light rounded border small">
+                            <strong class="d-block text-dark mb-1">Tratamento Cuidadoso de Áudio:</strong>
+                            <p class="text-muted mb-2">
+                                Navegadores modernos bloqueiam reprodução automática sem interação prévia. Criamos escutadores de evento (<code>window.addEventListener('click')</code> e rolagem passiva) para iniciar suavemente quando o visitante demonstra interesse pelo site.
+                            </p>
+                            <p class="text-muted mb-0">
+                                O player conta com controle de volume deslizante, botão mudo, equalizador com barras animadas em CSS e opção de recolher para um cantinho discreto da tela.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 4 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: CONSUMO DA API DO IBGE -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>3. A Força dos Dados Oficiais: A API Pública do IBGE</h2>
+                <span class="tag-sessao">3. Consumo de API</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-database-fill-check me-1"></i> Por Que Usar a API do IBGE?</h6>
+                        <p class="small text-secondary mb-2">
+                            Poderíamos ter inventado nomes em um arquivo fixo, mas a disciplina nos desafiou a trabalhar como profissionais da web trabalham: <strong>consumindo dados reais de servidores públicos em tempo real</strong>.
+                        </p>
+                        <p class="small text-secondary mb-2">
+                            Escolhemos o serviço oficial do Instituto Brasileiro de Geografia e Estatística (IBGE), consultando a base de dados de todos os municípios do Maranhão:
+                        </p>
+                        <div class="code-box my-2">
+                            https://servicodados.ibge.gov.br/api/v1/localidades/estados/MA/municipios
+                        </div>
+                        <p class="small text-muted mb-0">
+                            Isso nos permitiu obter com total precisão o <strong>Código do IBGE (ID de 7 dígitos)</strong>, a <strong>Microrregião</strong> e a <strong>Mesorregião</strong> de Timbiras e das cidades vizinhas da Região dos Cocais.
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-shield-heart me-1"></i> Tratamento Humano dos Estados de Rede</h6>
+                        <div class="p-3 bg-light rounded-3 border small">
+                            <p class="mb-2">
+                                <strong>1. Momento da Espera (Loading):</strong> Em conexões 3G ou 4G comuns no interior, a requisição pode demorar alguns segundos. Criamos um spinner com a mensagem amigável: <em>"Consultando base pública do IBGE..."</em>.
+                            </p>
+                            <p class="mb-2">
+                                <strong>2. Quando a Conexão Falha (Error):</strong> A vida real tem quedas de sinal. Em vez de tela branca ou quebra do sistema, exibimos um painel explicativo e o botão <em>"Recarregar API"</em>.
+                            </p>
+                            <p class="mb-0">
+                                <strong>3. Quando os Dados Chegam (Success):</strong> Convertemos o JSON com <code>response.json()</code> e preenchemos 217 cidades, dando destaque imediato a Timbiras, Codó, Coroatá, Caxias, Peritoró e Alto Alegre.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 5 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: ARQUITETURA DO FETCH E INTEGRAÇÃO COM MAPA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>3. Do JSON ao Mapa: A Rota da Solidariedade</h2>
+                <span class="tag-sessao">3. Consumo de API & Leaflet</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2 small"><i class="bi bi-code-square me-1"></i> Como o Código Busca e Trata os Dados</h6>
+                        <div class="code-box" style="font-size: 0.74rem;">
+useEffect(() => {
+    const controlador = new AbortController();
+
+    fetch('https://servicodados.ibge.gov.br/.../municipios', {
+        signal: controlador.signal <span class="text-success">// Evita travamento se sair da tela</span>
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('Falha na resposta do IBGE');
+        return res.json(); <span class="text-warning">// Transforma texto bruto em JSON</span>
+    })
+    .then(dados => setMunicipiosIbge(dados))
+    .catch(err => {
+        if (err.name !== 'AbortError') setErro('Sinal instável. Tente novamente.');
+    })
+    .finally(() => setCarregando(false));
+
+    return () => controlador.abort();
+}, []);
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2 small"><i class="bi bi-geo-alt-fill me-1"></i> Cruzando Dados do IBGE com o Mapa Leaflet</h6>
+                        <div class="cartao-humano">
+                            <strong class="text-dark small d-block mb-1">O Voo da Esperança (<code>mapa.flyTo</code>):</strong>
+                            <small class="text-muted">
+                                Usamos o hook <code>useMemo</code> para cruzar a lista oficial do IBGE com as coordenadas geográficas de cada cidade parceira. Quando o morador clica no card de Coroatá ou Codó, o mapa faz uma transição suave de câmera até a cidade, com marcador e detalhes da distância de Timbiras.
+                            </small>
+                        </div>
+                        <div class="cartao-destaque-quente">
+                            <strong class="text-dark small d-block mb-1">Busca Ampla por Qualquer Cidade:</strong>
+                            <small class="text-muted">
+                                Além das cidades dos Cocais, o usuário pode digitar qualquer município do Maranhão para localizar e planejar novos polos de expansão solidária.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 6 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: ORGANIZAÇÃO COM REACT (SPA) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>4. Organização com React: Componentes com Propósito</h2>
+                <span class="tag-sessao">4. Framework & SPA</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-5">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-boxes me-1"></i> Como Dividimos o Projeto</h6>
+                        <p class="small text-muted mb-2">
+                            Cada parte da página virou um componente em <code>src/components/</code>, facilitando a manutenção e permitindo que cada integrante da equipe trabalhasse sem conflitos:
+                        </p>
+                        <div class="p-3 bg-light rounded border font-monospace small" style="font-size: 0.76rem; line-height: 1.5;">
+                            <strong>App.jsx</strong> (Guardião do total de doações)<br>
+                            ├── <strong>Navbar.jsx</strong> (Navegação & menu mobile)<br>
+                            ├── <strong>Hero.jsx</strong> (Banner & contador ao vivo)<br>
+                            ├── <strong>ConsumoApi.jsx</strong> (IBGE & Mapa Leaflet)<br>
+                            ├── <strong>SobreCompleto.jsx</strong> (História & impacto)<br>
+                            ├── <strong>PrestacaoContas.jsx</strong> (Busca por bairro)<br>
+                            ├── <strong>Doar.jsx</strong> (Cadastro, chips & PIX)<br>
+                            ├── <strong>PlayerAudio.jsx</strong> (Trilha sonora)<br>
+                            └── <strong>Footer.jsx</strong> (Créditos & contatos)
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-window-fullscreen me-1"></i> Navegação SPA: Uma Experiência Fluida</h6>
+                        <div class="cartao-humano mb-3">
+                            <strong class="text-dark small d-block mb-1">Sem Aquele "Piscar Branco" do Navegador:</strong>
+                            <small class="text-muted">
+                                Em sites antigos, cada clique recarregava toda a página do zero, perdendo o que o usuário havia digitado e interrompendo a música. Como uma **Single Page Application (SPA)**, a navegação ocorre por rolagem suave (smooth scroll) entre as seções, mantendo o áudio tocando e os dados preservados.
+                            </small>
+                        </div>
+                        <div class="p-3 bg-light rounded border small">
+                            <strong class="d-block text-dark mb-1">Hooks do React que Deram Vida à Aplicação:</strong>
+                            <ul class="mb-0 ps-3 text-muted">
+                                <li><code>useState</code>: Para guardar o que o usuário digita, o total arrecadado e o menu aberto;</li>
+                                <li><code>useEffect</code>: Para buscar os dados no IBGE e escutar eventos de teclado e mouse;</li>
+                                <li><code>useRef</code>: Para controlar o som sem precisar redesenhar a tela inteira;</li>
+                                <li><code>localStorage</code>: Para que as doações cadastradas não sumam quando a página for fechada.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 7 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: TESTES E CORREÇÕES FEITAS PELA EQUIPE -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>5. Testando na Prática: Desafios e Correções Reais</h2>
+                <span class="tag-sessao">5. Testes & Qualidade</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-tools me-1"></i> O Que Deu Errado e Como Consertamos</h6>
+                        <div class="cartao-humano py-2 mb-2">
+                            <strong class="text-dark small d-block">1. O Desafio do Menu no Celular:</strong>
+                            <small class="text-muted">
+                                Nos primeiros testes em telas pequenas, os botões do cabeçalho quebravam e ocupavam metade da tela. Criamos um menu hambúrguer com estado React que se recolhe perfeitamente.
+                            </small>
+                        </div>
+                        <div class="cartao-humano py-2 mb-2">
+                            <strong class="text-dark small d-block">2. O Dado da API que Não Aparecia:</strong>
+                            <small class="text-muted">
+                                Inicialmente fazíamos o fetch do IBGE apenas para validar nomes internamente. Notamos que o professor queria ver a informação no visual. Criamos os cards com código IBGE e microrregião.
+                            </small>
+                        </div>
+                        <div class="cartao-humano py-2 mb-0">
+                            <strong class="text-dark small d-block">3. Aviso de Renderização em Cascata:</strong>
+                            <small class="text-muted">
+                                O linter acusava que um <code>setState</code> síncrono no efeito causava re-renderização desnecessária. Ajustamos o fluxo para deixar a inicialização limpa.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-clipboard-check-fill me-1"></i> Bateria de Testes Executados</h6>
+                        <div class="p-3 bg-light rounded-3 border small">
+                            <p class="mb-2"><strong>• Build de Produção com Vite:</strong> Compilado em menos de 800ms, gerando código minificado e assets organizados na pasta <code>dist/</code>.</p>
+                            <p class="mb-2"><strong>• Análise Estática com Oxlint:</strong> Zero erros de sintaxe, zero warnings de React e conformidade estrita com padrões modernos.</p>
+                            <p class="mb-2"><strong>• Teste de Formulários em Branco:</strong> O HTML5 impede envio sem campos obrigatórios e orienta o usuário com alertas amigáveis.</p>
+                            <p class="mb-0"><strong>• Teste em Celulares Reais:</strong> Testamos botões de toque, abertura de teclado virtual e rolagem suave em dispositivos Android e iOS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 8 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: PUBLICAÇÃO E LINKS REAIS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>5. A Aplicação no Ar: Acesso Livre e Transparente</h2>
+                <span class="tag-sessao">5. Publicação & Hospedagem</span>
+            </div>
+            <div class="slide-body d-flex flex-column justify-content-center">
+                <p class="text-center text-muted small mb-4">
+                    O projeto não ficou preso em um computador local: está publicado na internet, com certificado de segurança HTTPS e integração contínua a cada alteração da equipe.
+                </p>
+                <div class="row g-4 text-center">
+                    <div class="col-6">
+                        <div class="p-4 bg-white border border-success rounded-4 shadow-sm h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <i class="bi bi-github text-dark display-4 mb-2 d-block"></i>
+                                <h5 class="fw-bold text-success">Código-Fonte no GitHub</h5>
+                                <p class="text-muted small">Histórico completo de versões, commits da equipe, componentes React e instruções de execução.</p>
+                            </div>
+                            <div class="p-3 bg-light rounded text-break">
+                                <a href="https://github.com/ambersonrogers/timbiras-solidaria" target="_blank" class="fw-bold text-success text-decoration-none">
+                                    https://github.com/ambersonrogers/timbiras-solidaria
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-4 bg-white border border-primary rounded-4 shadow-sm h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <i class="bi bi-globe-americas text-primary display-4 mb-2 d-block"></i>
+                                <h5 class="fw-bold text-primary">Aplicação no Ar (Vercel)</h5>
+                                <p class="text-muted small">Deploy em nuvem de alta velocidade, com roteamento de SPA configurado via <code>vercel.json</code> e acesso mundial.</p>
+                            </div>
+                            <div class="p-3 bg-light rounded text-break">
+                                <a href="https://timbiras-solidaria.vercel.app" target="_blank" class="fw-bold text-primary text-decoration-none">
+                                    https://timbiras-solidaria.vercel.app
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-success py-2 mt-4 text-center small mb-0">
+                    <i class="bi bi-check-circle-fill me-2"></i> Ambos os links foram testados em abas anônimas e diferentes redes para garantir acesso irrestrito do professor e da tutoria.
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 9 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: EVIDÊNCIA VISUAL 1 (HERO E API DO IBGE) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Demonstração Visual: Tela Inicial & API do IBGE</h2>
+                <span class="tag-sessao">Evidências Reais</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4 h-100">
+                    <div class="col-6">
+                        <div class="print-preview-box">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="text-success small"><i class="bi bi-display me-1"></i> 1. Tela Inicial & Painel de Metas</strong>
+                                <span class="badge bg-success-subtle text-success">Desktop</span>
+                            </div>
+                            <img src="./img/captura_desktop.png" alt="Tela Inicial Desktop" style="max-height: 360px;">
+                            <p class="text-muted small mt-2 mb-0" style="font-size: 0.74rem;">
+                                Destaque para o acolhimento visual, a imagem real da agricultura familiar, o contador reativo de <strong>12 cestas</strong> e a barra de progresso da meta comunitária.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="print-preview-box">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="text-success small"><i class="bi bi-cloud-arrow-down-fill me-1"></i> 2. Rota Solidária & Dados do IBGE</strong>
+                                <span class="badge bg-primary-subtle text-primary">API + Mapa</span>
+                            </div>
+                            <img src="./img/captura_api_ibge.png" alt="API do IBGE e Mapa Leaflet" style="max-height: 360px;">
+                            <p class="text-muted small mt-2 mb-0" style="font-size: 0.74rem;">
+                                Cards gerados diretamente do JSON da API pública do IBGE, mostrando código oficial (ex: Timbiras 2112307, Codó 2103307), microrregião e mapa interativo Leaflet.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 10 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: EVIDÊNCIA VISUAL 2 (FORMULÁRIO E TRANSPARÊNCIA) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Demonstração Visual: Formulário, PIX & Prestação de Contas</h2>
+                <span class="tag-sessao">Evidências Reais</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4 h-100">
+                    <div class="col-6">
+                        <div class="print-preview-box">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="text-success small"><i class="bi bi-basket3-fill me-1"></i> 3. Formulário de Doação & PIX</strong>
+                                <span class="badge bg-warning-subtle text-dark">Interatividade</span>
+                            </div>
+                            <img src="./img/captura_doacao.png" alt="Formulário de Doação e PIX" style="max-height: 360px;">
+                            <p class="text-muted small mt-2 mb-0" style="font-size: 0.74rem;">
+                                Seleção facilitada por chips ("1 Cesta", "2 Cestas", "5 Cestas"), chave PIX com botão de cópia instantânea e formulário completo com validação nativa.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="print-preview-box">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="text-success small"><i class="bi bi-card-checklist me-1"></i> 4. Transparência por Bairro</strong>
+                                <span class="badge bg-success-subtle text-success">Filtro em Tempo Real</span>
+                            </div>
+                            <img src="./img/captura_prestacao_contas.png" alt="Prestação de Contas nos Bairros" style="max-height: 360px;">
+                            <p class="text-muted small mt-2 mb-0" style="font-size: 0.74rem;">
+                                Busca instantânea por bairros (Mutirão, Centro, Olaria, etc.), destaque para a Zona Rural (35 cestas) e somatório oficial transparente (215 cestas entregues).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 11 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: EVIDÊNCIA VISUAL 3 (RESPONSIVIDADE NO SMARTPHONE) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Demonstração Visual: Adaptação em Telas Mobile</h2>
+                <span class="tag-sessao">Responsividade Real</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4 align-items-center h-100">
+                    <div class="col-4 text-center">
+                        <div class="print-preview-box p-2">
+                            <strong class="text-success small mb-1 d-block"><i class="bi bi-phone me-1"></i> Menu Hambúrguer Aberto</strong>
+                            <img src="./img/captura_mobile_menu.png" alt="Menu Mobile Aberto" style="max-height: 380px; width: auto; margin: 0 auto; object-fit: contain;">
+                            <span class="badge bg-light text-muted border mt-2">Smartphone (390x844px)</span>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-phone-flip me-1"></i> Pensado para a Realidade de Quem Acessa pelo Celular</h6>
+                        <p class="text-muted small mb-3">
+                            No Maranhão e no Brasil, a grande maioria das pessoas acessa a internet exclusivamente pelo celular. Por isso, a adaptação mobile não foi um detalhe final, mas uma prioridade:
+                        </p>
+                        <div class="cartao-humano py-2 mb-2">
+                            <strong class="text-dark small d-block">Menu Retrátil Acessível:</strong>
+                            <small class="text-muted">O botão hambúrguer é fácil de tocar com o polegar, não polui a visão inicial e recolhe sozinho assim que o usuário escolhe a seção.</small>
+                        </div>
+                        <div class="cartao-humano py-2 mb-2">
+                            <strong class="text-dark small d-block">Cards em Coluna Única:</strong>
+                            <small class="text-muted">Os 13 bairros e os municípios do IBGE se reorganizam automaticamente em cascata vertical, sem barra de rolagem horizontal quebrada.</small>
+                        </div>
+                        <div class="cartao-humano py-2 mb-0">
+                            <strong class="text-dark small d-block">Player Compacto:</strong>
+                            <small class="text-muted">A trilha sonora fica ancorada no canto inferior direito sem atrapalhar a leitura dos formulários.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 12 / 13</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: CONCLUSÃO HUMANA & REFERÊNCIAS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2>6. Conclusão: O Que Aprendemos na Pele</h2>
+                <span class="tag-sessao">6. Aprendizados & ABNT</span>
+            </div>
+            <div class="slide-body">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-mortarboard-fill me-1"></i> Muito Além de Linhas de Código</h6>
+                        <div class="cartao-destaque-quente py-2 mb-2">
+                            <strong class="text-dark small d-block">Tecnologia Feita por Pessoas, Para Pessoas:</strong>
+                            <small class="text-muted">
+                                Aprendemos que um framework moderno como o React ou uma API do governo só têm valor quando resolvem um problema humano real. O código ganha vida quando serve para matar a fome e valorizar a nossa terra.
+                            </small>
+                        </div>
+                        <div class="cartao-humano py-2 mb-0">
+                            <strong class="text-dark small d-block">Prontos para a Nota 3:</strong>
+                            <small class="text-muted">
+                                A equipe conclui esta etapa com o sistema no ar, dados reais integrados e muito orgulho do que construímos. Estamos preparados e entusiasmados para a apresentação presencial no polo de Timbiras!
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-book-half me-1"></i> Referências Bibliográficas (Normas ABNT)</h6>
+                        <div class="p-3 bg-light rounded border small" style="font-size: 0.74rem; line-height: 1.5;">
+                            <p class="mb-2"><strong>BRASIL.</strong> Instituto Brasileiro de Geografia e Estatística (IBGE). <em>API de Serviços de Dados: Localidades</em>. Rio de Janeiro: IBGE, 2026. Disponível em: &lt;https://servicodados.ibge.gov.br/api/docs/localidades&gt;. Acesso em: 17 set. 2026.</p>
+                            <p class="mb-2"><strong>MDN WEB DOCS.</strong> <em>Fetch API</em>. Mozilla Developer Network, 2026. Disponível em: &lt;https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API&gt;. Acesso em: 17 set. 2026.</p>
+                            <p class="mb-2"><strong>ORGANIZAÇÃO DAS NAÇÕES UNIDAS (ONU).</strong> <em>Objetivo de Desenvolvimento Sustentável 2: Fome Zero e Agricultura Sustentável</em>. Brasília: Nações Unidas Brasil, 2015. Disponível em: &lt;https://brasil.un.org/pt-br/sdgs/2&gt;. Acesso em: 17 set. 2026.</p>
+                            <p class="mb-0"><strong>REACT.</strong> <em>React — A JavaScript library for building user interfaces</em>. Meta Open Source, 2026. Disponível em: &lt;https://react.dev/&gt;. Acesso em: 17 set. 2026.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Timbiras Solidária — ADS UEMA 2026</span>
+                <span>Slide 13 / 13</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
