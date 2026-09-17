@@ -425,24 +425,23 @@ footer a:hover {
 }
 
 /* ===================================================
-   PLAYER FLUTUANTE EMOCIONAL (ÁUDIO JOHN LENNON)
+   PLAYER FLUTUANTE EMOCIONAL (TRILHA SOLIDÁRIA)
+   Fiel ao design da imagem do usuário (bordas tricolor, pílula, slider verde, chevron azul)
    =================================================== */
 .player-flutuante-emocional {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid rgba(0, 135, 62, 0.35);
-    border-top: 3px solid var(--vermelho-timbiras);
-    border-bottom: 3px solid var(--verde-timbiras);
+    background: #ffffff;
+    border: 2.5px solid var(--azul-timbiras);
+    border-top: 3.5px solid var(--vermelho-timbiras);
+    border-bottom: 3.5px solid var(--verde-timbiras);
     border-radius: 999px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 158, 73, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 153, 255, 0.22);
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    padding: 5px 12px 5px 8px;
     gap: 8px;
     box-sizing: border-box;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -452,29 +451,28 @@ footer a:hover {
 /* Quando expandido */
 .player-flutuante-emocional.expandido {
     width: auto;
-    max-width: min(400px, calc(100vw - 28px));
+    max-width: min(420px, calc(100vw - 24px));
 }
 
-/* Quando recolhido (minimizado automaticamente no scroll para não cobrir texto ou imagem) */
+/* Quando recolhido (compacto com termo Trilha Solidária visível) */
 .player-flutuante-emocional.recolhido {
     width: auto;
     padding: 4px 10px 4px 6px;
-    gap: 6px;
+    gap: 8px;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 158, 73, 0.18);
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 153, 255, 0.2);
 }
 
 .player-flutuante-emocional.recolhido:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 158, 73, 0.25);
-    background: #ffffff;
+    box-shadow: 0 6px 22px rgba(0, 153, 255, 0.3);
 }
 
-/* Botão Play / Pause */
+/* Botão Play / Pause (círculo verde sólido com ícone branco) */
 .player-flutuante-emocional button#btnMusica {
     border: none;
-    background: linear-gradient(135deg, var(--verde-timbiras) 0%, #10b981 100%);
+    background: var(--verde-timbiras);
     color: #ffffff;
     width: 32px;
     height: 32px;
@@ -485,172 +483,154 @@ footer a:hover {
     cursor: pointer;
     font-size: 0.95rem;
     flex-shrink: 0;
-    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 158, 73, 0.35);
     padding: 0;
 }
 
 .player-flutuante-emocional button#btnMusica:hover {
-    background: linear-gradient(135deg, var(--azul-timbiras) 0%, #0284c7 100%);
+    background: #0f5132;
     transform: scale(1.08);
-    box-shadow: 0 3px 10px rgba(2, 132, 199, 0.4);
 }
 
 /* Conteúdo Expansível */
 .conteudo-expansivel {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     min-width: 0;
 }
 
+/* Texto: Trilha Sonora Solidária em verde e Toque para inspirar em cinza */
 .player-texto {
     display: flex;
-    flex-direction: column;
-    line-height: 1.15;
-    min-width: 0;
-    max-width: 120px;
+    align-items: center;
+    white-space: nowrap;
+    line-height: 1.2;
 }
 
-.player-texto strong {
-    color: var(--escuro);
-    font-size: 0.76rem;
+.titulo-trilha {
+    color: var(--verde-timbiras);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.subtitulo-trilha {
+    color: #475569;
+    font-size: 0.78rem;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.titulo-trilha-compacto {
+    color: var(--verde-timbiras);
+    font-size: 0.80rem;
     font-weight: 700;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.player-texto span {
-    color: var(--cinza-medio);
-    font-size: 0.65rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Equalizador animado */
-.equalizador {
-    display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 14px;
-    width: 14px;
-    flex-shrink: 0;
-}
-
-.equalizador span {
-    width: 3px;
-    border-radius: 2px;
-    height: 3px;
-    transition: height 0.2s;
-}
-
-.equalizador span:nth-child(1) {
-    background: var(--azul-timbiras);
-}
-
-.equalizador span:nth-child(2) {
-    background: var(--vermelho-timbiras);
-}
-
-.equalizador span:nth-child(3) {
-    background: var(--verde-timbiras);
-}
-
-.equalizador.animando span {
-    animation: bounceBar 1.2s ease-in-out infinite alternate;
-}
-
-.equalizador.animando span:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.equalizador.animando span:nth-child(2) {
-    animation-delay: 0.3s;
-}
-
-.equalizador.animando span:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-@keyframes bounceBar {
-    0% { height: 3px; }
-    100% { height: 13px; }
-}
-
-/* Controles de Áudio (Mute e Range) */
+/* Controles de Áudio: Ícone de som em azul e slider */
 .controles-audio-inf {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     flex-shrink: 0;
 }
 
-.controles-audio-inf input[type="range"] {
-    width: 52px;
-    accent-color: var(--verde-timbiras);
-    cursor: pointer;
-    height: 4px;
-    margin: 0;
-}
-
-.btn-mute,
-.btn-recolher,
-.btn-expandir {
+.btn-mute {
     background: transparent !important;
-    color: #64748b !important;
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 0.85rem;
+    color: var(--azul-timbiras) !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 1.05rem;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     cursor: pointer;
-    border-radius: 50%;
     flex-shrink: 0;
-    transition: color 0.2s, background-color 0.2s;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.btn-mute:hover,
+.btn-mute:hover {
+    transform: scale(1.15);
+}
+
+/* Slider de volume com preenchimento verde e botão circular grande conforme imagem */
+.slider-volume-timbiras {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 62px;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--verde-timbiras) 0%, var(--verde-timbiras) var(--vol-pct, 35%), #e2e8f0 var(--vol-pct, 35%), #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.slider-volume-timbiras::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--verde-timbiras);
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 135, 62, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.slider-volume-timbiras::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider-volume-timbiras::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--verde-timbiras);
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 135, 62, 0.4);
+    cursor: pointer;
+}
+
+/* Botões Chevron (Azuis conforme a imagem) */
+.btn-recolher,
+.btn-expandir {
+    background: transparent !important;
+    color: var(--azul-timbiras) !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
 .btn-recolher:hover,
 .btn-expandir:hover {
-    color: var(--verde-timbiras) !important;
-    background-color: #f1f5f9 !important;
+    transform: scale(1.2);
+    color: #007acc !important;
 }
 
 /* Conteúdo no modo recolhido */
 .conteudo-recolhido {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     cursor: pointer;
-}
-
-.badge-recolhido {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--escuro);
-}
-
-.badge-recolhido .mini-rotulo {
-    font-size: 0.70rem;
-    font-weight: 600;
-    color: var(--escuro);
-}
-
-.note-pulse {
-    animation: pulseNote 1.5s infinite;
-}
-
-@keyframes pulseNote {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
 }
 
 @media (max-width: 576px) {

@@ -7,67 +7,71 @@ export default function PlayerAudio() {
     const [volume, setVolume] = useState(0.35);
     const [mutado, setMutado] = useState(false);
     const usuarioPausouManual = useRef(false);
-    const usuarioMexeuRecolher = useRef(false);
 
-    // Ajustar volume do elemento de áudio
+    // Sincroniza o volume diretamente no elemento HTML5
     useEffect(() => {
         if (musicaRef.current) {
             musicaRef.current.volume = volume;
         }
     }, [volume]);
 
-    // Autoplay com rolagem da página e recolhimento automático para não cobrir conteúdo
+    // Disparador de reprodução automática com qualquer rolagem (scroll, wheel do mouse, touch) ou interação
     useEffect(() => {
-        const iniciarMusica = () => {
-            if (!usuarioPausouManual.current && musicaRef.current && musicaRef.current.paused) {
-                musicaRef.current.play().then(() => {
-                    setTocando(true);
-                }).catch(() => {
-                    // Bloqueio preventivo de navegadores; aguardará próximo gesto
-                });
+        const tentarIniciarMusica = () => {
+            if (usuarioPausouManual.current) return;
+            const audio = musicaRef.current;
+            if (!audio) return;
+
+            if (audio.paused) {
+                const promise = audio.play();
+                if (promise !== undefined) {
+                    promise.then(() => {
+                        setTocando(true);
+                    }).catch(() => {
+                        // Se o navegador bloquear preventivamente, aguardará a próxima interação de rolagem ou toque
+                    });
+                }
             }
         };
 
-        const handleScroll = () => {
-            // 1. Inicia música ao rolar a página
-            iniciarMusica();
+        // Escuta eventos em window e document para capturar rolagem da bolinha do mouse e toque
+        window.addEventListener('wheel', tentarIniciarMusica, { passive: true });
+        document.addEventListener('wheel', tentarIniciarMusica, { passive: true });
+        window.addEventListener('scroll', tentarIniciarMusica, { passive: true });
+        document.addEventListener('scroll', tentarIniciarMusica, { passive: true });
+        window.addEventListener('touchmove', tentarIniciarMusica, { passive: true });
+        window.addEventListener('touchstart', tentarIniciarMusica, { passive: true });
+        window.addEventListener('pointerdown', tentarIniciarMusica, { passive: true });
+        window.addEventListener('mousedown', tentarIniciarMusica, { passive: true });
+        window.addEventListener('keydown', tentarIniciarMusica, { passive: true });
+        window.addEventListener('click', tentarIniciarMusica, { passive: true });
+        document.body.addEventListener('mousemove', tentarIniciarMusica, { passive: true });
 
-            // 2. Recolhe automaticamente ao rolar a página para não cobrir texto ou imagem
-            if (window.scrollY > 60) {
-                setRecolhido(true);
-            } else if (window.scrollY < 20 && !usuarioMexeuRecolher.current) {
-                // Ao voltar ao topo extremo, reabre se o usuário não tiver recolhido manualmente
-                setRecolhido(false);
-            }
-        };
-
-        // Captura gestos de rolagem, toque e clique para destravar o áudio no navegador
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('wheel', handleScroll, { passive: true });
-        window.addEventListener('touchmove', handleScroll, { passive: true });
-        window.addEventListener('touchstart', iniciarMusica, { passive: true });
-        window.addEventListener('pointerdown', iniciarMusica, { passive: true });
-        window.addEventListener('keydown', iniciarMusica, { once: true });
-        window.addEventListener('click', iniciarMusica, { once: true });
-
-        // Tentativa de autoplay inicial
-        const timerAutoplay = setTimeout(iniciarMusica, 1400);
+        // Tentativas automáticas temporizadas
+        const t1 = setTimeout(tentarIniciarMusica, 800);
+        const t2 = setTimeout(tentarIniciarMusica, 1600);
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('wheel', handleScroll);
-            window.removeEventListener('touchmove', handleScroll);
-            window.removeEventListener('touchstart', iniciarMusica);
-            window.removeEventListener('pointerdown', iniciarMusica);
-            window.removeEventListener('keydown', iniciarMusica);
-            window.removeEventListener('click', iniciarMusica);
-            clearTimeout(timerAutoplay);
+            window.removeEventListener('wheel', tentarIniciarMusica);
+            document.removeEventListener('wheel', tentarIniciarMusica);
+            window.removeEventListener('scroll', tentarIniciarMusica);
+            document.removeEventListener('scroll', tentarIniciarMusica);
+            window.removeEventListener('touchmove', tentarIniciarMusica);
+            window.removeEventListener('touchstart', tentarIniciarMusica);
+            window.removeEventListener('pointerdown', tentarIniciarMusica);
+            window.removeEventListener('mousedown', tentarIniciarMusica);
+            window.removeEventListener('keydown', tentarIniciarMusica);
+            window.removeEventListener('click', tentarIniciarMusica);
+            document.body.removeEventListener('mousemove', tentarIniciarMusica);
+            clearTimeout(t1);
+            clearTimeout(t2);
         };
     }, []);
 
     const togglePlay = (e) => {
         if (e) e.stopPropagation();
         if (!musicaRef.current) return;
+
         if (musicaRef.current.paused) {
             musicaRef.current.play().then(() => {
                 setTocando(true);
@@ -108,44 +112,51 @@ export default function PlayerAudio() {
 
     const toggleRecolhido = (e) => {
         if (e) e.stopPropagation();
-        usuarioMexeuRecolher.current = true;
         setRecolhido(prev => !prev);
     };
+
+    const volumePorcentagem = mutado ? 0 : Math.round(volume * 100);
 
     return (
         <>
             {/* Elemento de áudio com caminho relativo e absoluto para compatibilidade total */}
-            <audio ref={musicaRef} src="/imagine.mp3" loop preload="auto" />
+            <audio 
+                ref={musicaRef} 
+                src="/imagine.mp3" 
+                loop 
+                preload="auto"
+                onPlay={() => setTocando(true)}
+                onPause={() => setTocando(false)}
+            />
 
             <div 
                 className={`player-flutuante-emocional ${recolhido ? 'recolhido' : 'expandido'}`} 
                 id="playerBox"
-                title={recolhido ? "Clique para expandir a trilha sonora" : "Trilha Sonora Solidária — John Lennon (Imagine)"}
-                onClick={recolhido ? toggleRecolhido : undefined}
+                title={recolhido ? "Clique para expandir o player da Trilha Solidária" : "Trilha Sonora Solidária — Toque para inspirar!"}
             >
-                {/* Botão Play / Pause (sempre visível e clicável) */}
+                {/* Botão Play / Pause com círculo verde idêntico ao modelo */}
                 <button 
                     type="button"
                     id="btnMusica" 
                     onClick={togglePlay} 
-                    title={tocando ? "Pausar música" : "Tocar Imagine (John Lennon)"}
+                    title={tocando ? "Pausar música" : "Tocar Trilha Sonora Solidária (Imagine)"}
                     aria-label={tocando ? "Pausar música" : "Tocar música"}
                 >
                     <i className={`bi ${tocando ? 'bi-pause-fill' : 'bi-play-fill'}`}></i>
                 </button>
 
-                {/* Modo EXPANDIDO */}
+                {/* Conteúdo no Modo Expandido */}
                 {!recolhido ? (
                     <div className="conteudo-expansivel">
-                        <div className="player-texto">
-                            <strong title="Imagine — John Lennon">Imagine</strong>
-                            <span>John Lennon (1971)</span>
+                        {/* Texto com o termo Trilha Sonora Solidária e Toque para inspirar */}
+                        <div className="player-texto" onClick={togglePlay} style={{ cursor: 'pointer' }}>
+                            <strong className="titulo-trilha">Trilha Sonora Solidária</strong>
+                            <span className="subtitulo-trilha">
+                                {tocando ? 'Imagine (John Lennon)' : 'Toque para inspirar!'}
+                            </span>
                         </div>
 
-                        <div className={`equalizador ${tocando ? 'animando' : 'parado'}`} title={tocando ? "Tocando trilha sonora" : "Pausado"}>
-                            <span></span><span></span><span></span>
-                        </div>
-
+                        {/* Controles de Volume: Ícone azul e slider personalizado */}
                         <div className="controles-audio-inf">
                             <button 
                                 type="button"
@@ -158,34 +169,34 @@ export default function PlayerAudio() {
                             </button>
                             <input 
                                 type="range" 
+                                className="slider-volume-timbiras"
                                 min="0" 
                                 max="1" 
                                 step="0.05" 
                                 value={mutado ? 0 : volume} 
                                 onChange={handleVolume} 
                                 onClick={(e) => e.stopPropagation()}
-                                title={`Volume: ${Math.round((mutado ? 0 : volume) * 100)}%`} 
+                                style={{ '--vol-pct': `${volumePorcentagem}%` }}
+                                title={`Volume: ${volumePorcentagem}%`} 
                                 aria-label="Controle de volume"
                             />
                         </div>
 
+                        {/* Botão Chevron Azul para Recolher (à direita, conforme imagem) */}
                         <button 
                             type="button"
                             onClick={toggleRecolhido} 
                             className="btn-recolher" 
-                            title="Recolher player (minimizar para não cobrir a página)"
-                            aria-label="Minimizar player"
+                            title="Recolher player"
+                            aria-label="Recolher player"
                         >
-                            <i className="bi bi-chevron-down"></i>
+                            <i className="bi bi-chevron-right"></i>
                         </button>
                     </div>
                 ) : (
-                    /* Modo RECOLHIDO (discreto no canto, não cobre texto nem imagem) */
-                    <div className="conteudo-recolhido" onClick={toggleRecolhido}>
-                        <span className="badge-recolhido" title="Trilha Sonora: Imagine (John Lennon)">
-                            <i className={`bi bi-music-note-beamed ${tocando ? 'text-success note-pulse' : 'text-muted'}`}></i>
-                            <span className="mini-rotulo">Imagine</span>
-                        </span>
+                    /* Conteúdo no Modo Recolhido (mostra o termo Trilha Solidária e chevron de expandir) */
+                    <div className="conteudo-recolhido" onClick={toggleRecolhido} style={{ cursor: 'pointer' }}>
+                        <strong className="titulo-trilha-compacto">Trilha Solidária</strong>
                         <button 
                             type="button"
                             className="btn-expandir" 
