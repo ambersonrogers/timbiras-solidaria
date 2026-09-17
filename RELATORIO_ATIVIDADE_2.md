@@ -77,7 +77,7 @@ Todo recurso interativo foi desenhado pensando na facilidade de uso do nosso pov
    - O botão de PIX utiliza a moderna `navigator.clipboard.writeText(...)`. Quando clicado, a chave institucional é copiada para a área de transferência do usuário e o botão muda temporariamente de cor e texto para *'Chave PIX Copiada com Sucesso!'*, devolvendo a tranquilidade de que o número não foi copiado errado.
 
 5. **Acolhimento com Trilha Sonora Solidária (`PlayerAudio.jsx`):**
-   - A fome e a solidariedade tocam o coração humano. Por isso, integramos ao projeto a clássica canção de paz e união *'Imagine'*.
+   - A fome e a solidariedade tocam o coração humano. Por isso, integramos ao projeto a clássica canção de paz e união *'Imagine'* de John Lennon (1971, Apple Records / EMI), executada para fins pedagógicos, acadêmicos e de sensibilização comunitária sem fins lucrativos.
    - Respeitando rigorosamente as boas práticas de usabilidade da web moderna e as políticas dos navegadores, a música não assusta o usuário com reprodução forçada e invasiva. Ela aguarda a primeira rolagem ou toque voluntário do visitante.
    - O player flutuante conta com controle de volume deslizante, botão de silenciamento (`mute`), equalizador com barras pulsantes animadas em CSS e um botão para minimizar o tocador para um canto discreto da tela, sem atrapalhar a leitura.
 
@@ -290,6 +290,7 @@ A **Equipe Timbiranos** entrega este trabalho com alegria e profundo respeito à
 
 - **BOOTSTRAP.** *Bootstrap: Powerful, extensible, and feature-packed frontend toolkit*. Versão 5.3. Bootstrap Team, 2026. Disponível em: <https://getbootstrap.com/>. Acesso em: 17 set. 2026.
 - **BRASIL.** Instituto Brasileiro de Geografia e Estatística (IBGE). *API de Serviços de Dados: Localidades — Municípios do Maranhão*. Rio de Janeiro: IBGE, 2026. Disponível em: <https://servicodados.ibge.gov.br/api/docs/localidades>. Acesso em: 17 set. 2026.
+- **LENNON, John.** *Imagine*. In: *Imagine*. Produção de John Lennon, Yoko Ono e Phil Spector. Ascot Sound Studios: Apple Records, 1971. 1 faixa musical (3 min 3 s). Utilizada para fins exclusivamente educativos e comunitários.
 - **MDN WEB DOCS.** *Fetch API: Usando Fetch e consumo assíncrono em JavaScript*. Mozilla Developer Network, 2026. Disponível em: <https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API/Using_Fetch>. Acesso em: 17 set. 2026.
 - **MDN WEB DOCS.** *Manipulação do DOM e escuta de eventos com addEventListener*. Mozilla Developer Network, 2026. Disponível em: <https://developer.mozilla.org/pt-BR/docs/Web/API/EventTarget/addEventListener>. Acesso em: 17 set. 2026.
 - **ORGANIZAÇÃO DAS NAÇÕES UNIDAS (ONU).** *Objetivo de Desenvolvimento Sustentável 2: Fome Zero e Agricultura Sustentável*. Brasília: Nações Unidas Brasil, 2015. Disponível em: <https://brasil.un.org/pt-br/sdgs/2>. Acesso em: 17 set. 2026.
