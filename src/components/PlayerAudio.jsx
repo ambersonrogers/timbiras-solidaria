@@ -81,8 +81,8 @@ export default function PlayerAudio() {
                 
                 <div className="conteudo-expansivel" style={{ display: recolhido ? 'none' : 'flex' }}>
                     <div className="player-texto">
-                        <strong>Trilha Sonora</strong>
-                        <span>Toque para inspirar!</span>
+                        <strong>Imagine (John Lennon)</strong>
+                        <span>Trilha Sonora Solidária (1971)</span>
                     </div>
                     <div className="equalizador" style={{ display: tocando ? 'flex' : 'none' }}>
                         <span></span><span></span><span></span>
