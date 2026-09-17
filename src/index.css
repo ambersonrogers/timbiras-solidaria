@@ -424,108 +424,184 @@ footer a:hover {
     text-decoration: none;
 }
 
-/* Estilos do Player Flutuante */
+/* ===================================================
+   PLAYER FLUTUANTE EMOCIONAL (ÁUDIO JOHN LENNON)
+   =================================================== */
 .player-flutuante-emocional {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
-    border: 2px solid var(--azul-timbiras);
-    border-top: 4px solid var(--vermelho-timbiras);
-    border-bottom: 4px solid var(--verde-timbiras);
-    border-radius: 14px;
-    padding: 5px 8px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(0, 135, 62, 0.35);
+    border-top: 3px solid var(--vermelho-timbiras);
+    border-bottom: 3px solid var(--verde-timbiras);
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 158, 73, 0.2);
     display: flex;
     align-items: center;
+    padding: 5px 10px;
     gap: 8px;
-    box-shadow: 0 6px 20px rgba(0, 153, 255, 0.25);
-    width: 357px;
-    transition: width 0.3s ease, padding 0.3s ease;
-    overflow: hidden;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
 }
+
+/* Quando expandido */
+.player-flutuante-emocional.expandido {
+    width: auto;
+    max-width: min(400px, calc(100vw - 28px));
+}
+
+/* Quando recolhido (minimizado automaticamente no scroll para não cobrir texto ou imagem) */
 .player-flutuante-emocional.recolhido {
-    width: 44px;
-    padding: 5px;
+    width: auto;
+    padding: 4px 10px 4px 6px;
+    gap: 6px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 158, 73, 0.18);
 }
+
+.player-flutuante-emocional.recolhido:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 158, 73, 0.25);
+    background: #ffffff;
+}
+
+/* Botão Play / Pause */
 .player-flutuante-emocional button#btnMusica {
     border: none;
-    background: var(--verde-timbiras);
-    color: white;
-    width: 28px;
-    height: 28px;
+    background: linear-gradient(135deg, var(--verde-timbiras) 0%, #10b981 100%);
+    color: #ffffff;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     flex-shrink: 0;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 158, 73, 0.35);
+    padding: 0;
 }
+
+.player-flutuante-emocional button#btnMusica:hover {
+    background: linear-gradient(135deg, var(--azul-timbiras) 0%, #0284c7 100%);
+    transform: scale(1.08);
+    box-shadow: 0 3px 10px rgba(2, 132, 199, 0.4);
+}
+
+/* Conteúdo Expansível */
 .conteudo-expansivel {
     display: flex;
     align-items: center;
     gap: 8px;
-    width: 100%;
+    min-width: 0;
 }
+
 .player-texto {
-    font-size: 0.68rem;
-    line-height: 1.1;
-    color: var(--escuro);
-    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    min-width: 0;
+    max-width: 120px;
 }
+
+.player-texto strong {
+    color: var(--escuro);
+    font-size: 0.76rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-texto span {
+    color: var(--cinza-medio);
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Equalizador animado */
 .equalizador {
     display: flex;
     align-items: flex-end;
     gap: 2px;
-    height: 12px;
-    margin: 0 2px;
+    height: 14px;
+    width: 14px;
+    flex-shrink: 0;
 }
+
 .equalizador span {
-    width: 2px;
-    background: var(--vermelho-timbiras);
+    width: 3px;
     border-radius: 2px;
-    animation: bounceBar 1.2s ease-in-out infinite alternate;
+    height: 3px;
+    transition: height 0.2s;
 }
 
 .equalizador span:nth-child(1) {
-    height: 4px;
-    animation-delay: 0.1s;
     background: var(--azul-timbiras);
 }
 
 .equalizador span:nth-child(2) {
-    height: 10px;
-    animation-delay: 0.3s;
     background: var(--vermelho-timbiras);
 }
 
 .equalizador span:nth-child(3) {
-    height: 7px;
-    animation-delay: 0.2s;
     background: var(--verde-timbiras);
 }
+
+.equalizador.animando span {
+    animation: bounceBar 1.2s ease-in-out infinite alternate;
+}
+
+.equalizador.animando span:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.equalizador.animando span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.equalizador.animando span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
 @keyframes bounceBar {
     0% { height: 3px; }
-    100% { height: 12px; }
+    100% { height: 13px; }
 }
+
+/* Controles de Áudio (Mute e Range) */
 .controles-audio-inf {
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-left: auto;
+    flex-shrink: 0;
 }
+
 .controles-audio-inf input[type="range"] {
-    width: 58px;
+    width: 52px;
     accent-color: var(--verde-timbiras);
     cursor: pointer;
     height: 4px;
+    margin: 0;
 }
-.btn-mute, .btn-recolher {
+
+.btn-mute,
+.btn-recolher,
+.btn-expandir {
     background: transparent !important;
-    color: var(--azul-timbiras) !important;
-    width: 20px !important;
-    height: 20px !important;
+    color: #64748b !important;
+    width: 24px !important;
+    height: 24px !important;
     font-size: 0.85rem;
     padding: 0;
     display: flex;
@@ -533,27 +609,48 @@ footer a:hover {
     justify-content: center;
     border: none;
     cursor: pointer;
+    border-radius: 50%;
     flex-shrink: 0;
-}
-
-.player-flutuante-emocional button#btnMusica {
-    transition: transform 0.2s, background 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 158, 73, 0.3);
-}
-
-.player-flutuante-emocional button#btnMusica:hover {
-    background: var(--azul-timbiras);
-    transform: scale(1.1);
-}
-
-.player-texto strong {
-    color: var(--verde-timbiras);
-    font-size: 0.72rem;
+    transition: color 0.2s, background-color 0.2s;
 }
 
 .btn-mute:hover,
-.btn-recolher:hover {
+.btn-recolher:hover,
+.btn-expandir:hover {
     color: var(--verde-timbiras) !important;
+    background-color: #f1f5f9 !important;
+}
+
+/* Conteúdo no modo recolhido */
+.conteudo-recolhido {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.badge-recolhido {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--escuro);
+}
+
+.badge-recolhido .mini-rotulo {
+    font-size: 0.70rem;
+    font-weight: 600;
+    color: var(--escuro);
+}
+
+.note-pulse {
+    animation: pulseNote 1.5s infinite;
+}
+
+@keyframes pulseNote {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
 }
 
 @media (max-width: 576px) {
@@ -562,13 +659,22 @@ footer a:hover {
     }
 
     .player-flutuante-emocional {
-        right: 10px;
-        bottom: 10px;
-        width: min(357px, calc(100vw - 20px));
+        right: 12px;
+        bottom: 12px;
+    }
+    
+    .player-flutuante-emocional.expandido {
+        max-width: calc(100vw - 24px);
+        padding: 4px 6px;
+        gap: 6px;
     }
 
     .player-texto {
-        white-space: normal;
+        max-width: 85px;
+    }
+
+    .controles-audio-inf input[type="range"] {
+        width: 40px;
     }
 
     .fluxo-linha,
