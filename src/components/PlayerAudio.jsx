@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 export default function PlayerAudio() {
     const musicaRef = useRef(null);
     const [tocando, setTocando] = useState(false);
-    const [recolhido, setRecolhido] = useState(false);
+    const [recolhido, setRecolhido] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 576);
     const [volume, setVolume] = useState(0.35);
     const [mutado, setMutado] = useState(false);
     const usuarioPausouManual = useRef(false);
+    const usuarioControlouManual = useRef(false);
 
     // Sincroniza o volume diretamente no elemento HTML5
     useEffect(() => {
@@ -15,54 +16,80 @@ export default function PlayerAudio() {
         }
     }, [volume]);
 
-    // Disparador de reprodução automática com qualquer rolagem (scroll, wheel do mouse, touch) ou interação
+    // Controle de estado e reprodução automática (scroll, wheel da bolinha do mouse, clique ou toque)
     useEffect(() => {
+        const audio = musicaRef.current;
+        if (audio && audio.readyState === 0) {
+            audio.load();
+        }
+
         const tentarIniciarMusica = () => {
             if (usuarioPausouManual.current) return;
-            const audio = musicaRef.current;
-            if (!audio) return;
+            const el = musicaRef.current;
+            if (!el) return;
 
-            if (audio.paused) {
-                const promise = audio.play();
+            if (el.paused) {
+                const promise = el.play();
                 if (promise !== undefined) {
                     promise.then(() => {
                         setTocando(true);
                     }).catch(() => {
-                        // Se o navegador bloquear preventivamente, aguardará a próxima interação de rolagem ou toque
+                        // Navegador aguarda o primeiro clique físico caso a política seja estrita
                     });
                 }
             }
         };
 
-        // Escuta eventos em window e document para capturar rolagem da bolinha do mouse e toque
-        window.addEventListener('wheel', tentarIniciarMusica, { passive: true });
-        document.addEventListener('wheel', tentarIniciarMusica, { passive: true });
-        window.addEventListener('scroll', tentarIniciarMusica, { passive: true });
-        document.addEventListener('scroll', tentarIniciarMusica, { passive: true });
-        window.addEventListener('touchmove', tentarIniciarMusica, { passive: true });
-        window.addEventListener('touchstart', tentarIniciarMusica, { passive: true });
-        window.addEventListener('pointerdown', tentarIniciarMusica, { passive: true });
-        window.addEventListener('mousedown', tentarIniciarMusica, { passive: true });
-        window.addEventListener('keydown', tentarIniciarMusica, { passive: true });
-        window.addEventListener('click', tentarIniciarMusica, { passive: true });
-        document.body.addEventListener('mousemove', tentarIniciarMusica, { passive: true });
+        const handleScrollPosicao = () => {
+            // 1. Tenta iniciar música ao rolar ou mexer na bolinha do mouse
+            tentarIniciarMusica();
 
-        // Tentativas automáticas temporizadas
-        const t1 = setTimeout(tentarIniciarMusica, 800);
-        const t2 = setTimeout(tentarIniciarMusica, 1600);
+            // 2. Regra: Aberto inteiro SOMENTE na tela inicial da página (Hero / topo)
+            // Nas outras seções (telas), recolhe automaticamente para não cobrir textos e imagens
+            const scrollAtual = window.scrollY || document.documentElement.scrollTop;
+            if (scrollAtual > 80) {
+                setRecolhido(true);
+            } else if (scrollAtual <= 40) {
+                usuarioControlouManual.current = false;
+                setRecolhido(false);
+            }
+        };
+
+        // Ouvintes globais em fase de CAPTURA para garantir disparo com clique, toque ou bolinha do mouse
+        const options = { capture: true, passive: true };
+        window.addEventListener('wheel', handleScrollPosicao, options);
+        document.addEventListener('wheel', handleScrollPosicao, options);
+        window.addEventListener('scroll', handleScrollPosicao, options);
+        document.addEventListener('scroll', handleScrollPosicao, options);
+        window.addEventListener('touchmove', handleScrollPosicao, options);
+        
+        window.addEventListener('pointerdown', tentarIniciarMusica, options);
+        document.addEventListener('pointerdown', tentarIniciarMusica, options);
+        window.addEventListener('mousedown', tentarIniciarMusica, options);
+        document.addEventListener('mousedown', tentarIniciarMusica, options);
+        window.addEventListener('click', tentarIniciarMusica, options);
+        document.addEventListener('click', tentarIniciarMusica, options);
+        window.addEventListener('touchstart', tentarIniciarMusica, options);
+        window.addEventListener('keydown', tentarIniciarMusica, options);
+
+        // Tentativas de autoplay inicial
+        const t1 = setTimeout(tentarIniciarMusica, 400);
+        const t2 = setTimeout(tentarIniciarMusica, 1000);
 
         return () => {
-            window.removeEventListener('wheel', tentarIniciarMusica);
-            document.removeEventListener('wheel', tentarIniciarMusica);
-            window.removeEventListener('scroll', tentarIniciarMusica);
-            document.removeEventListener('scroll', tentarIniciarMusica);
-            window.removeEventListener('touchmove', tentarIniciarMusica);
-            window.removeEventListener('touchstart', tentarIniciarMusica);
-            window.removeEventListener('pointerdown', tentarIniciarMusica);
-            window.removeEventListener('mousedown', tentarIniciarMusica);
-            window.removeEventListener('keydown', tentarIniciarMusica);
-            window.removeEventListener('click', tentarIniciarMusica);
-            document.body.removeEventListener('mousemove', tentarIniciarMusica);
+            window.removeEventListener('wheel', handleScrollPosicao, true);
+            document.removeEventListener('wheel', handleScrollPosicao, true);
+            window.removeEventListener('scroll', handleScrollPosicao, true);
+            document.removeEventListener('scroll', handleScrollPosicao, true);
+            window.removeEventListener('touchmove', handleScrollPosicao, true);
+            window.removeEventListener('pointerdown', tentarIniciarMusica, true);
+            document.removeEventListener('pointerdown', tentarIniciarMusica, true);
+            window.removeEventListener('mousedown', tentarIniciarMusica, true);
+            document.removeEventListener('mousedown', tentarIniciarMusica, true);
+            window.removeEventListener('click', tentarIniciarMusica, true);
+            document.removeEventListener('click', tentarIniciarMusica, true);
+            window.removeEventListener('touchstart', tentarIniciarMusica, true);
+            window.removeEventListener('keydown', tentarIniciarMusica, true);
             clearTimeout(t1);
             clearTimeout(t2);
         };
@@ -112,6 +139,7 @@ export default function PlayerAudio() {
 
     const toggleRecolhido = (e) => {
         if (e) e.stopPropagation();
+        usuarioControlouManual.current = true;
         setRecolhido(prev => !prev);
     };
 
@@ -119,7 +147,7 @@ export default function PlayerAudio() {
 
     return (
         <>
-            {/* Elemento de áudio com caminho relativo e absoluto para compatibilidade total */}
+            {/* Elemento de áudio da Trilha Sonora Solidária */}
             <audio 
                 ref={musicaRef} 
                 src="/imagine.mp3" 
@@ -132,21 +160,21 @@ export default function PlayerAudio() {
             <div 
                 className={`player-flutuante-emocional ${recolhido ? 'recolhido' : 'expandido'}`} 
                 id="playerBox"
-                title={recolhido ? "Clique para expandir o player da Trilha Solidária" : "Trilha Sonora Solidária — Toque para inspirar!"}
+                title={recolhido ? (tocando ? "Trilha Sonora Solidária (Imagine) — Pausar" : "Trilha Sonora Solidária (Imagine) — Tocar") : "Trilha Sonora Solidária — Toque para inspirar!"}
             >
-                {/* Botão Play / Pause com círculo verde idêntico ao modelo */}
+                {/* Botão Play / Pause (círculo verde conforme o modelo original) */}
                 <button 
                     type="button"
                     id="btnMusica" 
                     onClick={togglePlay} 
-                    title={tocando ? "Pausar música" : "Tocar Trilha Sonora Solidária (Imagine)"}
+                    title={tocando ? "Pausar música (Imagine - John Lennon)" : "Tocar Trilha Sonora Solidária (Imagine)"}
                     aria-label={tocando ? "Pausar música" : "Tocar música"}
                 >
                     <i className={`bi ${tocando ? 'bi-pause-fill' : 'bi-play-fill'}`}></i>
                 </button>
 
-                {/* Conteúdo no Modo Expandido */}
-                {!recolhido ? (
+                {/* No Modo Recolhido: apenas o squircle com o botão play/pause verde (fiel à imagem do usuário) */}
+                {!recolhido && (
                     <div className="conteudo-expansivel">
                         {/* Texto com o termo Trilha Sonora Solidária e Toque para inspirar */}
                         <div className="player-texto" onClick={togglePlay} style={{ cursor: 'pointer' }}>
@@ -182,7 +210,7 @@ export default function PlayerAudio() {
                             />
                         </div>
 
-                        {/* Botão Chevron Azul para Recolher (à direita, conforme imagem) */}
+                        {/* Botão Chevron Azul para Recolher manualmente */}
                         <button 
                             type="button"
                             onClick={toggleRecolhido} 
@@ -191,19 +219,6 @@ export default function PlayerAudio() {
                             aria-label="Recolher player"
                         >
                             <i className="bi bi-chevron-right"></i>
-                        </button>
-                    </div>
-                ) : (
-                    /* Conteúdo no Modo Recolhido (mostra o termo Trilha Solidária e chevron de expandir) */
-                    <div className="conteudo-recolhido" onClick={toggleRecolhido} style={{ cursor: 'pointer' }}>
-                        <strong className="titulo-trilha-compacto">Trilha Solidária</strong>
-                        <button 
-                            type="button"
-                            className="btn-expandir" 
-                            title="Expandir controles do player"
-                            aria-label="Expandir controles"
-                        >
-                            <i className="bi bi-chevron-left"></i>
                         </button>
                     </div>
                 )}

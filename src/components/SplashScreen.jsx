@@ -11,7 +11,13 @@ export default function SplashScreen() {
     }, []);
 
     return (
-        <div id="splash-screen" className={hidden ? 'hidden' : ''}>
+        <div 
+            id="splash-screen" 
+            className={hidden ? 'hidden' : ''} 
+            onClick={() => setHidden(true)}
+            style={{ cursor: 'pointer' }}
+            title="Clique para entrar no site"
+        >
             <span className="particle" style={{ top: '15%', left: '10%' }}>🌾</span>
             <span className="particle" style={{ top: '20%', right: '15%' }}>🥕</span>
             <span className="particle" style={{ bottom: '25%', left: '20%' }}>🍅</span>

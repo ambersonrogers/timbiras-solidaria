@@ -437,36 +437,39 @@ footer a:hover {
     border: 2.5px solid var(--azul-timbiras);
     border-top: 3.5px solid var(--vermelho-timbiras);
     border-bottom: 3.5px solid var(--verde-timbiras);
-    border-radius: 999px;
     box-shadow: 0 6px 20px rgba(0, 153, 255, 0.22);
     display: flex;
     align-items: center;
-    padding: 5px 12px 5px 8px;
-    gap: 8px;
     box-sizing: border-box;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     user-select: none;
 }
 
-/* Quando expandido */
+/* Quando expandido (Tela Inicial / Hero - Pílula com todos os controles) */
 .player-flutuante-emocional.expandido {
     width: auto;
     max-width: min(420px, calc(100vw - 24px));
+    border-radius: 999px;
+    padding: 5px 12px 5px 8px;
+    gap: 8px;
 }
 
-/* Quando recolhido (compacto com termo Trilha Solidária visível) */
+/* Quando recolhido (Ao rolar a página / demais seções - Squircle fiel à imagem do usuário) */
 .player-flutuante-emocional.recolhido {
-    width: auto;
-    padding: 4px 10px 4px 6px;
-    gap: 8px;
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    min-height: 54px;
+    border-radius: 18px;
+    padding: 0;
+    justify-content: center;
     cursor: pointer;
-    background: #ffffff;
-    box-shadow: 0 4px 16px rgba(0, 153, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 153, 255, 0.25);
 }
 
 .player-flutuante-emocional.recolhido:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(0, 153, 255, 0.3);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 10px 28px rgba(0, 153, 255, 0.35);
 }
 
 /* Botão Play / Pause (círculo verde sólido com ícone branco) */
@@ -486,6 +489,13 @@ footer a:hover {
     transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 8px rgba(0, 158, 73, 0.35);
     padding: 0;
+}
+
+/* Tamanho destacado do botão circular no modo squircle recolhido */
+.player-flutuante-emocional.recolhido button#btnMusica {
+    width: 38px;
+    height: 38px;
+    font-size: 1.15rem;
 }
 
 .player-flutuante-emocional button#btnMusica:hover {
