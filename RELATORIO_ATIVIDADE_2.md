@@ -1,9 +1,10 @@
 # UNIVERSIDADE ESTADUAL DO MARANHÃO — UEMA
-## CENTRO DE CIÊNCIAS TECNOLÓGICAS — CCT
+## NÚCLEO DE TECNOLOGIAS PARA EDUCAÇÃO – UEMANET
 ### CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
-### DISCIPLINA: DESENVOLVIMENTO WEB | SEMESTRE 2024 / ENTREGA 2026
+### DISCIPLINA: DESENVOLVIMENTO WEB
+### DOCENTE: PROF. EDILSON CARLOS SILVA LIMA
+### TUTORA: PROF.ª SIMONE
 ### POLO UNIVERSITÁRIO DE TIMBIRAS — MARANHÃO
-
 ---
 
 # RELATÓRIO TÉCNICO E MEMORIAL DESCRITIVO — ATIVIDADE AVALIATIVA 2 (NOTA 2)
@@ -31,7 +32,7 @@
 ### 1.1 Contexto Social e a Realidade de Timbiras (MA)
 Timbiras é um município maranhense de gente trabalhadora, acolhedora e cheia de fé, cortado pelas águas históricas do Rio Itapecuru e cercado pela riqueza dos babaçuais da Região dos Cocais. Contudo, assim como em tantas cidades do interior do nosso Estado, a realidade da vulnerabilidade socioeconômica e da insegurança alimentar ainda bate à porta de centenas de famílias.
 
-Nos bairros mais afastados do centro urbano — como Forquilha, Mutirão, Alto Fogoso, Olaria, Anjo da Guarda e Vila Papi — e, de modo ainda mais silencioso, nos povoados da vasta zona rural timbirense, mães e pais de família enfrentam dias de incerteza para colocar comida nutritiva no prato dos seus filhos.
+Nos bairros mais afastados do centro urbano — como Forquilha, Mutirão, Alto Fogoso, Olaria, Anjo da Guarda e Vila 70 — e, de modo ainda mais silencioso, nos povoados da vasta zona rural timbirense, mães e pais de família enfrentam dias de incerteza para colocar comida nutritiva no prato dos seus filhos.
 
 Ao mesmo tempo, nossa cidade possui agricultores familiares dedicados nas hortas e roças comunitárias, além de feirantes e comerciantes solidários que frequentemente possuem produtos excedentes ou disposição para contribuir, mas que não contavam com uma ferramenta simples, transparente e direta para fazer essa doação chegar a quem realmente tem fome.
 
